@@ -44,7 +44,7 @@ type (
 		Deviations          []Deviation         `mapstructure:"deviation_thresholds"`
 		Account             Account             `mapstructure:"account"`
 		Keyring             Keyring             `mapstructure:"keyring"`
-		RPC                 RPC                 `mapstructure:"rpc" validate:"required,gt=0,dive,required"`
+		RPC                 RPC                 `mapstructure:"rpc" validate:"required"`
 		Telemetry           telemetry.Config    `mapstructure:"telemetry"`
 		GasAdjustment       float64             `mapstructure:"gas_adjustment"`
 		Gas                 uint64              `mapstructure:"gas"`
