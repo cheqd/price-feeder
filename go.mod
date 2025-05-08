@@ -90,7 +90,7 @@ require (
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/charithe/durationcheck v0.0.10 // indirect
 	github.com/chavacava/garif v0.1.0 // indirect
-	github.com/cheqd/cheqd-node v1.4.6-pseudo-version-3.1.5.0.20250508054613-edc1c1cc1b14
+	github.com/cheqd/cheqd-node v1.4.6-pseudo-version-3.1.5.0.20250508100149-f2aaf28fce20
 	github.com/cheqd/cheqd-node/api/v2 v2.3.3 // indirect
 	github.com/chzyer/readline v1.5.1 // indirect
 	github.com/ckaznocha/intrange v0.1.2 // indirect
@@ -370,7 +370,7 @@ require (
 replace (
 	cosmossdk.io/core => cosmossdk.io/core v0.11.1
 
-	github.com/cheqd/cheqd-node => /home/vitwit/go/src/github.com/vishal-kanna/cheqd-node
+	github.com/cheqd/cheqd-node => github.com/cheqd/cheqd-node v1.4.6-pseudo-version-3.1.5.0.20250508100149-f2aaf28fce20
 	github.com/cometbft/cometbft => github.com/cometbft/cometbft v0.38.12
 	github.com/confio/ics23/go => github.com/cosmos/cosmos-sdk/ics23/go v0.8.0
 	github.com/cosmos/cosmos-sdk => github.com/cheqd/cosmos-sdk v0.50.13-height-mismatch-patched

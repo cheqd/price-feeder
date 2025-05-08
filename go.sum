@@ -360,6 +360,8 @@ github.com/charithe/durationcheck v0.0.10/go.mod h1:bCWXb7gYRysD1CU3C+u4ceO49LoG
 github.com/chavacava/garif v0.1.0 h1:2JHa3hbYf5D9dsgseMKAmc/MZ109otzgNFk5s87H9Pc=
 github.com/chavacava/garif v0.1.0/go.mod h1:XMyYCkEL58DF0oyW4qDjjnPWONs2HBqYKI+UIPD+Gww=
 github.com/cheggaaa/pb v1.0.27/go.mod h1:pQciLPpbU0oxA0h+VJYYLxO+XeDQb5pZijXscXHm81s=
+github.com/cheqd/cheqd-node v1.4.6-pseudo-version-3.1.5.0.20250508100149-f2aaf28fce20 h1:h4cg99PbCgn9ihJQEZAMBDqHXM6OysCxXxlg7ZXQsh0=
+github.com/cheqd/cheqd-node v1.4.6-pseudo-version-3.1.5.0.20250508100149-f2aaf28fce20/go.mod h1:3yyZOgolQQUbFxDojl3tAESEuzXmbUMJnEwFn+CE//s=
 github.com/cheqd/cheqd-node/api/v2 v2.3.3 h1:+MiqfX5PVCm694syvh1gcsOdsUeV1Jre2FMuexKJyLs=
 github.com/cheqd/cheqd-node/api/v2 v2.3.3/go.mod h1:/FJLvKCyQzYYWmBKORAeFA6tDYYp1GX4Hamh0xyKszo=
 github.com/cheqd/cosmos-sdk v0.50.13-height-mismatch-patched h1:Bakt/tLtxobTXCCHDPfNlMUsuBjPXNgD1zRMOsijhUE=
