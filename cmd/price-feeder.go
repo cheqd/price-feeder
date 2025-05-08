@@ -21,8 +21,8 @@ import (
 	"golang.org/x/sync/errgroup"
 
 	"github.com/cosmos/cosmos-sdk/telemetry"
-	"github.com/ojo-network/ojo/app/params"
 
+	"github.com/cheqd/cheqd-node/app"
 	"github.com/ojo-network/price-feeder/config"
 	"github.com/ojo-network/price-feeder/oracle"
 	"github.com/ojo-network/price-feeder/oracle/client"
@@ -58,7 +58,8 @@ func init() {
 	// We need to set our bech32 address prefix because it was moved
 	// out of ojo's init function.
 	// Ref: https://github.com/ojo-network/ojo/pull/63
-	params.SetAddressPrefixes()
+	app.SetConfig()
+
 	rootCmd.PersistentFlags().String(flagLogLevel, zerolog.InfoLevel.String(), "logging level")
 	rootCmd.PersistentFlags().String(flagLogFormat, logLevelText, "logging format; must be either json or text")
 	rootCmd.PersistentFlags().Bool(flagSkipProviderCheck, false, "skip the coingecko API provider check")
