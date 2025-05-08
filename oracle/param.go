@@ -4,11 +4,11 @@ import (
 	"context"
 	"sync"
 
+	oracletypes "github.com/cheqd/cheqd-node/x/oracle/types"
 	tmrpcclient "github.com/cometbft/cometbft/rpc/client"
 	rpchttp "github.com/cometbft/cometbft/rpc/client/http"
 	tmctypes "github.com/cometbft/cometbft/rpc/core/types"
 	"github.com/cosmos/cosmos-sdk/client"
-	oracletypes "github.com/ojo-network/ojo/x/oracle/types"
 	"github.com/rs/zerolog"
 )
 

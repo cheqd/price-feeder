@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"cosmossdk.io/math"
-	oracletypes "github.com/ojo-network/ojo/x/oracle/types"
+	oracletypes "github.com/cheqd/cheqd-node/x/oracle/types"
 
 	"github.com/ojo-network/price-feeder/oracle/provider"
 	"github.com/ojo-network/price-feeder/oracle/types"

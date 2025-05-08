@@ -12,10 +12,10 @@ import (
 	"time"
 
 	sdkmath "cosmossdk.io/math"
+	oracletypes "github.com/cheqd/cheqd-node/x/oracle/types"
 	"github.com/cosmos/cosmos-sdk/telemetry"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ojo-network/ojo/util"
-	oracletypes "github.com/ojo-network/ojo/x/oracle/types"
 	"github.com/rs/zerolog"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
