@@ -9,7 +9,7 @@ require (
 	cosmossdk.io/math v1.5.3
 	github.com/cometbft/cometbft v0.38.12
 	github.com/cosmos/cosmos-sdk v0.50.13
-	github.com/go-playground/validator/v10 v10.15.0
+	github.com/go-playground/validator/v10 v10.26.0
 	github.com/golangci/golangci-lint v1.60.3
 	github.com/gorilla/mux v1.8.1
 	github.com/gorilla/websocket v1.5.3
@@ -27,7 +27,10 @@ require (
 	gopkg.in/yaml.v3 v3.0.1
 )
 
-require github.com/cheqd/cheqd-node v1.4.6-pseudo-version-3.1.5.0.20250508054613-edc1c1cc1b14 // indirect
+require (
+	github.com/cheqd/cheqd-node v1.4.6-pseudo-version-3.1.5.0.20250508054613-edc1c1cc1b14 // indirect
+	github.com/cheqd/cheqd-node/api/v2 v2.3.4 // indirect
+)
 
 replace (
 	cosmossdk.io/core => cosmossdk.io/core v0.11.1
