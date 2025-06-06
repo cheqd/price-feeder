@@ -17,4 +17,6 @@ var (
 
 	EURUSD = types.CurrencyPair{Base: "EUR", Quote: "USD"}
 	JPYUSD = types.CurrencyPair{Base: "JPY", Quote: "USD"}
+
+	CHEQUSDC = types.CurrencyPair{Base: "CHEQ", Quote: "USDC"}
 )

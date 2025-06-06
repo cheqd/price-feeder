@@ -13,6 +13,7 @@ const (
 	ProviderBinance     types.ProviderName = "binance"
 	ProviderBinanceUS   types.ProviderName = "binanceus"
 	ProviderOsmosis     types.ProviderName = "osmosis"
+	ProviderOsmosisICQ  types.ProviderName = "osmosis-icq"
 	ProviderHuobi       types.ProviderName = "huobi"
 	ProviderOkx         types.ProviderName = "okx"
 	ProviderGate        types.ProviderName = "gate"
@@ -30,9 +31,7 @@ const (
 	ProviderMock        types.ProviderName = "mock"
 )
 
-var (
-	ping = []byte("ping")
-)
+var ping = []byte("ping")
 
 type (
 	// Provider defines an interface an exchange price provider must implement.

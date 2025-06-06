@@ -76,6 +76,10 @@ type Oracle struct {
 
 	tvwapsByProvider types.PricesWithMutex
 	vwapsByProvider  types.PricesWithMutex
+
+	// added below fields for CHEQ/USDC using icq
+	osmosisICQPrice      sdkmath.LegacyDec
+	isICQProviderEnabled bool
 }
 
 func New(
@@ -237,6 +241,12 @@ func (o *Oracle) SetPrices(ctx context.Context) error {
 			usdPair := types.CurrencyPair{Base: pair.Base, Quote: config.DenomUSD}
 			if _, ok := requiredRates[usdPair]; !ok {
 				requiredRates[usdPair] = struct{}{}
+			}
+
+			// check whether osmosisICQ provider enabled
+			if providerName == provider.ProviderOsmosisICQ && o.isICQProviderEnabled {
+				icqProvider := priceProvider.(*provider.OsmosisICQProvider)
+				icqProvider.SetTickerPrice(pair, o.osmosisICQPrice)
 			}
 		}
 
@@ -440,6 +450,9 @@ func NewProvider(
 	case provider.ProviderOsmosis:
 		return provider.NewOsmosisProvider(ctx, logger, endpoint, providerPairs...)
 
+	case provider.ProviderOsmosisICQ:
+		return provider.NewOsmosisICQProvider(ctx, logger, providerPairs...)
+
 	case provider.ProviderHuobi:
 		return provider.NewHuobiProvider(ctx, logger, endpoint, providerPairs...)
 
@@ -490,6 +503,13 @@ func NewProvider(
 	}
 
 	return nil, fmt.Errorf("provider %s not found", providerName)
+}
+
+func (o *Oracle) SetICQProviderPrice(price sdkmath.LegacyDec) {
+	_, o.isICQProviderEnabled = o.providerPairs[provider.ProviderOsmosisICQ]
+	if o.isICQProviderEnabled {
+		o.osmosisICQPrice = price
+	}
 }
 
 // GetParamCache returns the last updated parameters of the x/oracle module
