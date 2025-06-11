@@ -369,11 +369,14 @@ require (
 
 replace (
 	cosmossdk.io/core => cosmossdk.io/core v0.11.1
+	// replace cosmossdk.io/store with patched version
+	cosmossdk.io/store => github.com/cheqd/cosmos-sdk/store v1.1.1-uneven-heights-iavl
 
 	github.com/cheqd/cheqd-node => github.com/cheqd/cheqd-node v1.4.6-pseudo-version-3.1.5.0.20250508123707-7a62e808f761
 	github.com/cometbft/cometbft => github.com/cometbft/cometbft v0.38.12
 	github.com/confio/ics23/go => github.com/cosmos/cosmos-sdk/ics23/go v0.8.0
-	github.com/cosmos/cosmos-sdk => github.com/cheqd/cosmos-sdk v0.50.13-height-mismatch-patched
+	github.com/cosmos/cosmos-sdk => github.com/cheqd/cosmos-sdk v0.50.13-auth-uneven-heights-fix
+	github.com/cosmos/iavl => github.com/cheqd/iavl v1.2.2-uneven-heights
 	// dgrijalva/jwt-go is deprecated and doesn't receive security updates.
 	github.com/dgrijalva/jwt-go => github.com/golang-jwt/jwt/v4 v4.4.2
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
