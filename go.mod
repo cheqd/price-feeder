@@ -90,8 +90,8 @@ require (
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/charithe/durationcheck v0.0.10 // indirect
 	github.com/chavacava/garif v0.1.0 // indirect
-	github.com/cheqd/cheqd-node v1.4.6-pseudo-version-3.1.5.0.20250508123707-7a62e808f761
-	github.com/cheqd/cheqd-node/api/v2 v2.3.3 // indirect
+	github.com/cheqd/cheqd-node v1.4.6-pseudo-version-4.0.0.0.20250624165807-91db00ffea94
+	github.com/cheqd/cheqd-node/api/v2 v2.3.5-0.20250514151055-c7d12358336f // indirect
 	github.com/chzyer/readline v1.5.1 // indirect
 	github.com/ckaznocha/intrange v0.1.2 // indirect
 	github.com/cockroachdb/apd/v2 v2.0.2 // indirect
@@ -337,20 +337,20 @@ require (
 	go.opentelemetry.io/otel v1.34.0 // indirect
 	go.opentelemetry.io/otel/metric v1.34.0 // indirect
 	go.opentelemetry.io/otel/trace v1.34.0 // indirect
-	go.uber.org/automaxprocs v1.5.3 // indirect
+	go.uber.org/automaxprocs v1.6.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
-	golang.org/x/crypto v0.36.0 // indirect
+	golang.org/x/crypto v0.38.0 // indirect
 	golang.org/x/exp v0.0.0-20240719175910-8a7402abbf56 // indirect
 	golang.org/x/exp/typeparams v0.0.0-20240314144324-c7f7c6466f7f // indirect
-	golang.org/x/mod v0.22.0 // indirect
-	golang.org/x/net v0.34.0 // indirect
-	golang.org/x/oauth2 v0.25.0 // indirect
-	golang.org/x/sys v0.31.0 // indirect
-	golang.org/x/term v0.30.0 // indirect
-	golang.org/x/text v0.23.0 // indirect
-	golang.org/x/time v0.6.0 // indirect
-	golang.org/x/tools v0.28.0 // indirect
+	golang.org/x/mod v0.24.0 // indirect
+	golang.org/x/net v0.40.0 // indirect
+	golang.org/x/oauth2 v0.30.0 // indirect
+	golang.org/x/sys v0.33.0 // indirect
+	golang.org/x/term v0.32.0 // indirect
+	golang.org/x/text v0.25.0 // indirect
+	golang.org/x/time v0.11.0 // indirect
+	golang.org/x/tools v0.33.0 // indirect
 	google.golang.org/api v0.192.0 // indirect
 	google.golang.org/genproto v0.0.0-20240730163845-b1a4ccb954bf // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20250106144421-5f5ef82da422 // indirect
@@ -372,7 +372,7 @@ replace (
 	// replace cosmossdk.io/store with patched version
 	cosmossdk.io/store => github.com/cheqd/cosmos-sdk/store v1.1.1-uneven-heights-iavl
 
-	github.com/cheqd/cheqd-node => github.com/cheqd/cheqd-node v1.4.6-pseudo-version-3.1.5.0.20250508123707-7a62e808f761
+	github.com/cheqd/cheqd-node => github.com/cheqd/cheqd-node v1.4.6-pseudo-version-4.0.0.0.20250624165807-91db00ffea94
 	github.com/cometbft/cometbft => github.com/cometbft/cometbft v0.38.12
 	github.com/confio/ics23/go => github.com/cosmos/cosmos-sdk/ics23/go v0.8.0
 	github.com/cosmos/cosmos-sdk => github.com/cheqd/cosmos-sdk v0.50.13-auth-uneven-heights-fix
@@ -381,8 +381,8 @@ replace (
 	github.com/dgrijalva/jwt-go => github.com/golang-jwt/jwt/v4 v4.4.2
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
 	// github.com/ojo-network/ojo => github.com/cheqd/cheqd-node v1.4.6-pseudo-version-3.1.5.0.20250508054613-edc1c1cc1b14
-	github.com/osmosis-labs/fee-abstraction/v8 => github.com/cheqd/fee-abstraction/v8 v8.0.3-0.20250415073134-32bfc4118457
+	github.com/osmosis-labs/fee-abstraction/v8 => github.com/cheqd/fee-abstraction/v8 v8.0.3-uneven-heights-patched
 
 	// https://github.com/cheqd/feemarket/tree/cheqd/v0.50.x
-	github.com/skip-mev/feemarket => github.com/cheqd/feemarket v1.0.5-0.20250415072337-dc43e8876c3a
+	github.com/skip-mev/feemarket => github.com/cheqd/feemarket v1.0.5-uneven-heights
 )
