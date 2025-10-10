@@ -78,3 +78,27 @@ lint:
 	@go run github.com/golangci/golangci-lint/cmd/golangci-lint run --fix --timeout=8m
 
 .PHONY: lint
+
+###############################################################################
+##                             Protobuf                                      ##
+###############################################################################
+
+PROTO_DIR := proto
+OUT_DIR := oracle/types
+
+proto:
+	@# Check if protoc is installed
+	@command -v protoc >/dev/null 2>&1 || { \
+		echo >&2 "Error: protoc is not installed. Please install protobuf compiler."; \
+		exit 1; \
+	}
+
+	@echo "Generating Go protobuf code..."
+	@protoc \
+		--experimental_allow_proto3_optional \
+		--go_out=$(OUT_DIR) \
+		--go_opt=paths=import \
+		$(PROTO_DIR)/*.proto
+	@echo "Protobuf generation completed."
+
+.PHONY: proto

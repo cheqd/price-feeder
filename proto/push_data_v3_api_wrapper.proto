@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+import "proto/mexc_public_bookticker_v3_api.proto";
+
+import "proto/mexc_public_kline_v3_api.proto";
+
+// Go package option (replace with your actual Go module path)
+option go_package = "./;types";
+
+// Optimize for speed (default behavior)
+option optimize_for = SPEED;
+
+message BookTicker {
+
+  string channel = 1;
+
+  PublicBookTickerV3Api publicBookTicker = 305;
+
+  optional string symbol = 3;
+
+  optional int64 sendTime = 6;
+
+}
+
+message SpotKline {
+
+    string channel = 1;
+  
+    PublicSpotKlineV3Api publicSpotKline = 308;
+  
+    optional string symbol = 3;
+  
+    optional string symbolId = 4;
+  
+    optional int64 createTime = 5;
+
+}

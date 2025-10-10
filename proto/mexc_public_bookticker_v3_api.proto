@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+// Go package option (replace with your actual Go module path)
+option go_package = "./;types";
+
+// Optimize for speed (default behavior)
+option optimize_for = SPEED;
+
+message PublicBookTickerV3Api {
+
+  string bidPrice = 1;
+  string bidQuantity = 2;
+  string askPrice = 3;
+  string askQuantity = 4;
+}

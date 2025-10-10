@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+// Go package option (replace with your actual Go module path)
+option go_package = "./;types";
+
+// Optimize for speed (default behavior)
+option optimize_for = SPEED;
+
+// This message represents a single Kline (candlestick) data point for a symbol
+// received from the "spot@public.kline.v3.api.pb@<symbol>@<interval>" channel.
+message PublicSpotKlineV3Api {
+  // Kline interval (Min1, Min5, Min15, Min30, Min60, Hour4, Hour8, Day1, Week1, Month1)
+  string interval = 1;
+
+  // Window start timestamp (in seconds)
+  int64 window_start = 2;
+
+  // Opening price at the start of the interval
+  string opening_price = 3;
+
+  // Closing price at the end of the interval
+  string closing_price = 4;
+
+  // Highest price during the interval
+  string highest_price = 5;
+
+  // Lowest price during the interval
+  string lowest_price = 6;
+
+  // Total traded volume during the interval
+  string volume = 7;
+
+  // Total traded amount (turnover) during the interval
+  string amount = 8;
+
+  // Window end timestamp (in seconds)
+  int64 window_end = 9;
+}

@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"math/big"
 	"net/http"
 	"net/url"
 	"strings"
@@ -15,10 +14,12 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/ojo-network/price-feeder/oracle/types"
 	"github.com/rs/zerolog"
+
+	googleproto "google.golang.org/protobuf/proto"
 )
 
 const (
-	mexcWSHost   = "wbs.mexc.com"
+	mexcWSHost   = "wbs-api.mexc.com"
 	mexcWSPath   = "/ws"
 	mexcRestHost = "https://api.mexc.com/"
 	mexcRestPath = "/api/v3/ticker/price"
@@ -42,26 +43,12 @@ type (
 
 	// MexcTickerResponse is the ticker price response object.
 	MexcTickerResponse struct {
-		Symbol   string     `json:"s"` // e.x. ATOMUSDT
-		Metadata MexcTicker `json:"d"` // Metadata for ticker
-	}
-	MexcTicker struct {
-		LastPrice string `json:"b"` // Best bid price ex.: 0.0025
-		Volume    string `json:"B"` // Best bid qty ex.: 1000
+		*types.PublicBookTickerV3Api
 	}
 
 	// MexcCandle is the candle websocket response object.
 	MexcCandleResponse struct {
-		Symbol   string     `json:"s"` // Symbol ex.: ATOMUSDT
-		Metadata MexcCandle `json:"d"` // Metadata for candle
-	}
-	MexcCandle struct {
-		Data MexcCandleData `json:"k"`
-	}
-	MexcCandleData struct {
-		Close     *big.Float `json:"c"` // Price at close
-		TimeStamp int64      `json:"T"` // Close time in unix epoch ex.: 1645756200
-		Volume    *big.Float `json:"v"` // Volume during period
+		*types.PublicSpotKlineV3Api
 	}
 
 	// MexcCandleSubscription Msg to subscribe all the candle channels.
@@ -191,22 +178,24 @@ func (p *MexcProvider) SubscribeCurrencyPairs(cps ...types.CurrencyPair) {
 
 func (p *MexcProvider) messageReceived(_ int, _ *WebsocketConnection, bz []byte) {
 	var (
-		tickerResp MexcTickerResponse
-		tickerErr  error
-		candleResp MexcCandleResponse
-		candleErr  error
+		ticker    types.BookTicker
+		tickerErr error
+		candle    types.SpotKline
+		candleErr error
 	)
 
-	tickerErr = json.Unmarshal(bz, &tickerResp)
-	if tickerResp.Metadata.LastPrice != "" {
-		p.setTickerPair(tickerResp.Metadata, tickerResp.Symbol)
+	tickerErr = googleproto.Unmarshal(bz, &ticker)
+	if ticker.PublicBookTicker != nil && ticker.PublicBookTicker.BidPrice != "" {
+		tickerResp := MexcTickerResponse{ticker.PublicBookTicker}
+		p.setTickerPair(tickerResp, *ticker.Symbol)
 		telemetryWebsocketMessage(ProviderMexc, MessageTypeTicker)
 		return
 	}
 
-	candleErr = json.Unmarshal(bz, &candleResp)
-	if candleResp.Metadata.Data.Close != nil {
-		p.setCandlePair(candleResp.Metadata, candleResp.Symbol)
+	candleErr = googleproto.Unmarshal(bz, &candle)
+	if candle.PublicSpotKline != nil && candle.PublicSpotKline.ClosingPrice != "" {
+		candleResp := MexcCandleResponse{candle.PublicSpotKline}
+		p.setCandlePair(candleResp, *candle.Symbol)
 		telemetryWebsocketMessage(ProviderMexc, MessageTypeCandle)
 		return
 	}
@@ -220,12 +209,12 @@ func (p *MexcProvider) messageReceived(_ int, _ *WebsocketConnection, bz []byte)
 	}
 }
 
-func (mt MexcTicker) toTickerPrice() (types.TickerPrice, error) {
-	price, err := math.LegacyNewDecFromStr(mt.LastPrice)
+func (mt MexcTickerResponse) toTickerPrice() (types.TickerPrice, error) {
+	price, err := math.LegacyNewDecFromStr(mt.BidPrice)
 	if err != nil {
 		return types.TickerPrice{}, err
 	}
-	volume, err := math.LegacyNewDecFromStr(mt.Volume)
+	volume, err := math.LegacyNewDecFromStr(mt.BidQuantity)
 	if err != nil {
 		return types.TickerPrice{}, err
 	}
@@ -237,12 +226,12 @@ func (mt MexcTicker) toTickerPrice() (types.TickerPrice, error) {
 	return ticker, nil
 }
 
-func (mc MexcCandle) toCandlePrice() (types.CandlePrice, error) {
-	close, err := math.LegacyNewDecFromStr(mc.Data.Close.String())
+func (mc MexcCandleResponse) toCandlePrice() (types.CandlePrice, error) {
+	close, err := math.LegacyNewDecFromStr(mc.ClosingPrice)
 	if err != nil {
 		return types.CandlePrice{}, err
 	}
-	volume, err := math.LegacyNewDecFromStr(mc.Data.Volume.String())
+	volume, err := math.LegacyNewDecFromStr(mc.Volume)
 	if err != nil {
 		return types.CandlePrice{}, err
 	}
@@ -251,7 +240,7 @@ func (mc MexcCandle) toCandlePrice() (types.CandlePrice, error) {
 		Price:  close,
 		Volume: volume,
 		// convert seconds -> milli
-		TimeStamp: SecondsToMilli(mc.Data.TimeStamp),
+		TimeStamp: SecondsToMilli(mc.WindowEnd),
 	}
 	return candle, nil
 }
@@ -295,7 +284,7 @@ func currencyPairToMexcPair(cp types.CurrencyPair) string {
 func newMexcCandleSubscriptionMsg(symbols []string) MexcCandleSubscription {
 	params := make([]string, len(symbols))
 	for i, symbol := range symbols {
-		params[i] = fmt.Sprintf("spot@public.kline.v3.api@%s@Min1", symbol)
+		params[i] = fmt.Sprintf("spot@public.kline.v3.api.pb@%s@Min1", symbol)
 	}
 	return MexcCandleSubscription{
 		Method: "SUBSCRIPTION",
@@ -307,7 +296,7 @@ func newMexcCandleSubscriptionMsg(symbols []string) MexcCandleSubscription {
 func newMexcTickerSubscriptionMsg(symbols []string) MexcTickerSubscription {
 	params := make([]string, len(symbols))
 	for i, symbol := range symbols {
-		params[i] = fmt.Sprintf("spot@public.bookTicker.v3.api@%s", symbol)
+		params[i] = fmt.Sprintf("spot@public.aggre.bookTicker.v3.api.pb@100ms@%s", symbol)
 	}
 	return MexcTickerSubscription{
 		Method: "SUBSCRIPTION",
