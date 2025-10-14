@@ -86,9 +86,13 @@ func NewMexcProvider(
 			Websocket: mexcWSHost,
 		}
 	}
+	scheme := "wss"
+	if strings.HasPrefix(endpoints.Websocket, "localhost") || strings.HasPrefix(endpoints.Websocket, "127.0.0.1") {
+		scheme = "ws"
+	}
 
 	wsURL := url.URL{
-		Scheme: "wss",
+		Scheme: scheme,
 		Host:   endpoints.Websocket,
 		Path:   mexcWSPath,
 	}
