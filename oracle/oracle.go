@@ -512,6 +512,14 @@ func (o *Oracle) SetICQProviderPrice(price sdkmath.LegacyDec) {
 	}
 }
 
+// GetICQProviderPrice returns the for CHEQ/USDC price
+func (o *Oracle) GetICQPrice() sdkmath.LegacyDec {
+	if o.isICQProviderEnabled {
+		return o.osmosisICQPrice
+	}
+	return sdkmath.LegacyZeroDec()
+}
+
 // GetParamCache returns the last updated parameters of the x/oracle module
 // if the current ParamCache is outdated or a param update event was found, the cache is updated.
 func (o *Oracle) GetParamCache(ctx context.Context, currentBlockHeight int64) (oracletypes.Params, error) {
