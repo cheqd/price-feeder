@@ -355,7 +355,7 @@ require (
 	google.golang.org/genproto v0.0.0-20240730163845-b1a4ccb954bf // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20250106144421-5f5ef82da422 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250303144028-a0af3efb3deb // indirect
-	google.golang.org/protobuf v1.36.6 // indirect
+	google.golang.org/protobuf v1.36.6
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gotest.tools/v3 v3.5.1 // indirect
@@ -370,13 +370,16 @@ require (
 replace (
 	cosmossdk.io/core => cosmossdk.io/core v0.11.1
 	// replace cosmossdk.io/store with patched version
-	cosmossdk.io/store => github.com/cheqd/cosmos-sdk/store v1.1.1-uneven-heights-iavl
+	cosmossdk.io/store => github.com/cheqd/cosmos-sdk/store v1.1.2-0.20250808071119-3b33570d853b
 
 	github.com/cheqd/cheqd-node => github.com/cheqd/cheqd-node v1.4.6-pseudo-version-4.0.0.0.20250624165807-91db00ffea94
 	github.com/cometbft/cometbft => github.com/cometbft/cometbft v0.38.12
 	github.com/confio/ics23/go => github.com/cosmos/cosmos-sdk/ics23/go v0.8.0
-	github.com/cosmos/cosmos-sdk => github.com/cheqd/cosmos-sdk v0.50.13-auth-uneven-heights-fix
-	github.com/cosmos/iavl => github.com/cheqd/iavl v1.2.2-uneven-heights
+	// replace cosmos-sdk v0.50.14
+	github.com/cosmos/cosmos-sdk => github.com/cheqd/cosmos-sdk v0.50.14-height-mismatch-iavl.0.20250808071119-3b33570d853b
+	// replace iavl v1.2.2
+	// https://github.com/cheqd/iavl/tree/cheqd-v1.2.2-uneven-heights
+	github.com/cosmos/iavl => github.com/cheqd/iavl v1.2.2-uneven-heights.0.20250808065519-2c3d5a9959cc
 	// dgrijalva/jwt-go is deprecated and doesn't receive security updates.
 	github.com/dgrijalva/jwt-go => github.com/golang-jwt/jwt/v4 v4.4.2
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
